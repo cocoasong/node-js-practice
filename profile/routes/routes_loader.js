@@ -11,7 +11,8 @@ function initRoutes(app, router) {
     for(var i = 0; i < config.routes_info.length; i++) {
         var curItem = config.routes_info[i];
         var curModule = require(curItem.file);
-        if(curItem.type == 'post') {
+
+        if(curItem.type == 'post') {      
             router.route(curItem.path).post(curModule[curItem.method]);
         }
         else if(curItem.type == 'get') {

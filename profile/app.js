@@ -8,19 +8,25 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var expressErrorHandler = require('express-error-handler');
+var flash = require('connect-flash');
 
 // config
-var appConfig = require('./config/app_config');
+var config = require('./config/app_config');
 
 // loader
 var routes_loader = require('./routes/routes_loader');
+var database_loader = require('./database/database_loader');
+var passsport_loader = require('./config/passport_loader');
 
 var app = express();
-app.set('port', appConfig.server_port || 3000);
-app.set('viwes', __dirname + '/views');
-app.set('view engie', appConfig.view_eigine);
+
+app.set('port', config.server_port || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', config.view_eigine);
 
 // use middleware
+app.use(flash());
+
 app.use(static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -33,6 +39,9 @@ app.use(expressSession({
     resave: true,
     saveUninitialized: true
 }));
+
+// passport
+passsport_loader.init(app);
 
 // routes
 routes_loader.init(app, express.Router());
@@ -47,4 +56,5 @@ app.use(errorHandler);
 
 var server = http.createServer(app).listen(app.get('port'), function() {
     console.log('서버가 시작되었습니다.');
+    database_loader.init(app);
 });
