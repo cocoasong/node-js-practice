@@ -1,6 +1,6 @@
 var LocalStrategy = require('passport-local').Strategy;
 
-var signup = new LocalStrategy({
+module.exports = new LocalStrategy({
     usernameField: 'emailInput',
     passwordField: 'passwordInput',
     passReqToCallback: true
@@ -10,12 +10,12 @@ var signup = new LocalStrategy({
     var paramName = req.body.nameInput || req.query.nameInput;
     
     var user = new database.UserModel({email: username, password: password, name: paramName});
-    user.save(function(err, result) {
+    user.save(function(err) {
         if(err) {
-            return done(err);
+            return done(null, false, req.flash('signupMessage', '회원가입에 실패하였습니다'));
         }
 
-        if(database.UserModel.findByEmail(email, function(err, result) {
+        if(database.UserModel.findByEmail(username, function(err, result) {
             if(err) {
                 return done(null, false, req.flash('signupMessage', '회원가입에 실패하였습니다'));
             }
@@ -28,5 +28,3 @@ var signup = new LocalStrategy({
         return done(null, user);
     });
 });
-
-module.exports.signup = signup;

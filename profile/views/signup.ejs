@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login Page</title>
+        <title>Signup Page</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -20,26 +20,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 offset-sm-3">
-                    <h1><span class="fa fa-sign-in"></span>로그인</h1>
+                    <h1><span class="fa fa-anchor"></span>회원가입</h1>
                     <%  if(message.length > 0) {    %>
-                            <div class="alert alert-danger"><%= message %></div>      
+                            <div class="alert alert-danger"><%= message %></div>
                     <%  }   %>
-
-                    <form action="/login" method="POST">
+                    <form action="/signup" method="post">
                         <div class="form-group">
                             <label>이메일</label>
-                            <input type="email" class="form-control" name="emailInput"> 
+                            <input type="email" class="form-control" name="emailInput">
                         </div>
                         <div class="form-group">
                             <label>비밀번호</label>
-                            <input type="passowrd" class="form-control" name="passwordInput"> 
+                            <input type="password" class="form-control" name="passwordInput">
                         </div>
-                        <br>
-                        <button type="submit" class="btn btn-warning btn-lg">로그인</button>
+                        <div class="form-group">
+                            <label>이름</label>
+                            <input type="text" class="form-control" name="nameInput">
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">회원가입</button>
                     </form>
-
                     <hr>
-                    <p>계정이 없으세요? <a href="/signup">회원가입하기</a></p>
+                    <p>이미 계정이 있으신가요? </p><a href="/login">로그인하기</a>
                     <p><a href="/">홈으로</a></p>
                 </div>
             </div>

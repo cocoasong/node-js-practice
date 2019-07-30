@@ -6,5 +6,11 @@ var login = passport.authenticate('local-login', {
     failureFlash: true
 });
 
-module.exports.login = login;
+var signup = passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/signup',
+    failureFlash: true
+});
 
+module.exports.login = login;
+module.exports.signup = signup;
